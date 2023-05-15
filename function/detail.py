@@ -94,6 +94,9 @@ class Detail():
         address = '-'
         phone = '-'
         other_info = '-'
+        kwScore = '-'
+        hjScore = '-'
+        fwScore = '-'
         try:
             base_info = main_info.select('#basic-info')[0]
             try:
@@ -107,10 +110,18 @@ class Detail():
                 shop_name = '-'
             try:
                 brief_info = main_info.select('.brief-info')[0]
+                # 评论总数
                 try:
                     review_count = brief_info.select('#reviewCount')[0].text.strip()
                 except:
                     review_count = '-'
+                # score 平均分数
+                try:
+                    score = brief_info.select('.mid-score')[0].text.strip()
+                except:
+                    score = '-'
+
+                # 人均价格
                 try:
                     avg_price = brief_info.select('#avgPriceTitle')[0].text.strip()
                 except:
@@ -130,6 +141,31 @@ class Detail():
                     other_info = main_info.select('.other')[0].text.replace('修改', '').strip()
                 except:
                     other_info = '-'
+                # 获取具体评论
+
+                try:
+                    comment_score = brief_info.select('#comment_score')[0]
+                    try:
+                        kwScore = comment_score.select('.item')[0].text.strip()
+                        kwScore = kwScore.replace('口味:', '').strip()
+                        kwScore = float(kwScore)
+                    except:
+                        kwScore = '-'
+                    try:
+                        hjScore = comment_score.select('.item')[1].text.strip()
+                        hjScore = hjScore.replace('环境:', '').strip()
+                        hjScore = float(hjScore)
+                    except:
+                        hjScore = '-'
+                    try:
+                        fwScore = comment_score.select('.item')[2].text.strip()
+                        fwScore = fwScore.replace('服务:', '').strip()
+                        fwScore = float(fwScore)
+                    except:
+                        fwScore = '-'
+                except:
+                    pass
+                    # comment_score
             except:
                 pass
         except:
@@ -167,6 +203,10 @@ class Detail():
             '人均价格': avg_price,
             '店铺地址': address,
             '店铺电话': phone,
-            '其他信息': other_info
+            '店铺均分': score,
+            '其他信息': other_info,
+            '口味分数': kwScore,
+            '环境分数': hjScore,
+            '服务分数': fwScore
         }
         return detail_info

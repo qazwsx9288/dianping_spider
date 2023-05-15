@@ -115,7 +115,7 @@ class Controller():
                         # 多版本爬取格式适配
                         each_detail_res.update({
                             '店铺总分': '-',
-                            '店铺均分': '-',
+                            # '店铺均分': '-',
                             '优惠券信息': '-',
                         })
                     else:
@@ -164,6 +164,9 @@ class Controller():
                     each_search_res['店铺总分'] = each_detail_res['店铺总分']
                     if each_search_res['店铺均分'] == '-':
                         each_search_res['店铺均分'] = each_detail_res['店铺均分']
+                    each_search_res['口味分数'] = each_detail_res['口味分数']
+                    each_search_res['环境分数'] = each_detail_res['环境分数']
+                    each_search_res['服务分数'] = each_detail_res['服务分数']
                     each_search_res['人均价格'] = each_detail_res['人均价格']
                     each_search_res['评论总数'] = each_detail_res['评论总数']
                     each_search_res['其他信息'] = each_detail_res['其他信息']
@@ -240,7 +243,7 @@ class Controller():
             # 多版本爬取格式适配
             each_detail_res.update({
                 '店铺总分': '-',
-                '店铺均分': '-',
+                # '店铺均分': '-',
             })
         else:
             """
