@@ -60,7 +60,7 @@ class Controller():
         # Todo  其实这里挺犹豫是爬取完搜索直接详情还是爬一段详情一段
         #       本着稀释同类型访问频率的原则，暂时采用爬一段详情一段
         # 调用搜索
-        for page in tqdm(range(1, spider_config.NEED_SEARCH_PAGES + 1), desc='搜索页数'):
+        for page in tqdm(range(spider_config.START_SEARCH_PAGES, spider_config.NEED_SEARCH_PAGES + 1), desc='搜索页数'):
             # 拼凑url
             search_url, request_type = self.get_search_url(page)
             """
@@ -211,7 +211,6 @@ class Controller():
                         each_search_res['推荐菜'] = each_review_res['推荐菜']
                         # 对于已经给到search_res中的信息，删除
                         each_review_res.pop('推荐菜')
-
 
                 self.saver(each_search_res, each_review_res)
             # 如果这一页数据小于15，代表下一页已经没有数据了，直接退出
